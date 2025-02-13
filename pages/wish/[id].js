@@ -6,7 +6,6 @@ import { db } from '../../firebase/config';
 import { doc, getDoc } from 'firebase/firestore';
 import { FaHeart, FaWhatsapp, FaFacebook, FaInstagram, FaPen } from 'react-icons/fa';
 import Footer from '../../components/Footer';
-import Advertisement from '../../components/Advertisement';
 
 // Heart animation component
 const FloatingHeart = ({ style }) => (
@@ -139,9 +138,6 @@ export default function WishPage() {
       </Head>
 
       <div className="container">
-        {/* Top Ad */}
-        <Advertisement slot="wish_page_top_slot" />
-
         {hearts.map(heart => (
           <FloatingHeart key={heart.id} style={heart.style} />
         ))}
@@ -246,9 +242,6 @@ export default function WishPage() {
             </motion.button>
           </div>
         </motion.div>
-
-        {/* Bottom Ad */}
-        <Advertisement slot="wish_page_bottom_slot" />
       </div>
       <Footer />
     </>

@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { FaHeart } from 'react-icons/fa';
 import Footer from '../components/Footer';
-import Advertisement from '../components/Advertisement';
 
 export default function Home() {
   const router = useRouter();
@@ -48,9 +47,6 @@ export default function Home() {
       </Head>
 
       <div className="container">
-        {/* Top Ad */}
-        <Advertisement slot="1234567890" />
-
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -121,19 +117,6 @@ export default function Home() {
             </motion.button>
           </form>
         </motion.div>
-
-        {/* Bottom Ad */}
-        <Advertisement slot="0987654321" />
-      </div>
-
-      {/* Sidebar Ad */}
-      <div className="sidebar-ad">
-        <Advertisement slot="1122334455" format="vertical" />
-      </div>
-
-      {/* Footer Ad */}
-      <div className="footer-ad">
-        <Advertisement slot="5544332211" />
       </div>
 
       <Footer />
