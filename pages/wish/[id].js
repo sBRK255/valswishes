@@ -6,6 +6,7 @@ import { db } from '../../firebase/config';
 import { doc, getDoc } from 'firebase/firestore';
 import { FaHeart, FaWhatsapp, FaFacebook, FaInstagram, FaPen } from 'react-icons/fa';
 import Footer from '../../components/Footer';
+import CardGenerator from '../../components/CardGenerator';
 
 // Heart animation component
 const FloatingHeart = ({ style }) => (
@@ -177,6 +178,15 @@ export default function WishPage() {
               {wish.fromName} <FaHeart className="inline-block text-pink-500" />
             </motion.div>
           </div>
+        </motion.div>
+
+        {/* Add this after the message display */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+        >
+          <CardGenerator wish={wish} />
         </motion.div>
 
         {/* Actions Container (Share and Create) */}

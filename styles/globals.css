@@ -377,3 +377,124 @@ body::before {
 .animate-pulse {
   animation: pulse 2s infinite;
 }
+
+.ad-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ad-container.footer-ad {
+  position: fixed;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  max-width: 100%;
+  border-radius: 0;
+}
+
+.ad-container.sidebar-ad {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 160px;
+  min-height: 600px;
+  margin: 0;
+}
+
+@media (max-width: 1200px) {
+  .ad-container.sidebar-ad {
+    display: none;
+  }
+}
+
+/* Card Generator Styles */
+.card-generator {
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.card-preview {
+  background: linear-gradient(135deg, #fff5f6 0%, #ffe9ec 100%);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.card-heading {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.card-message {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+  white-space: pre-wrap;
+  text-align: justify;
+}
+
+.card-signature {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  text-align: right;
+  margin-top: 2rem;
+}
+
+.card-watermark {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 0.7rem;
+  color: rgba(74, 74, 74, 0.3);
+  font-family: var(--font-body);
+}
+
+.download-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.download-button {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  background: var(--gradient-pink);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.download-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
