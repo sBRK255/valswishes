@@ -1,26 +1,37 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
-import { FaDownload } from 'react-icons/fa';
+import { FaDownload, FaSpinner } from 'react-icons/fa';
 
 export default function CardGenerator({ wish }) {
   const cardRef = useRef(null);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const downloadCard = async (format = 'png') => {
+    if (isGenerating) return;
+    
+    setIsGenerating(true);
     try {
       const card = cardRef.current;
+      if (!card) throw new Error('Card element not found');
+
       const canvas = await html2canvas(card, {
-        scale: 2, // Higher quality
+        scale: 2,
         backgroundColor: null,
-        logging: false
+        logging: false,
+        useCORS: true, // Enable cross-origin image loading
+        allowTaint: true
       });
       
-      const image = canvas.toDataURL(`image/${format}`);
+      const image = canvas.toDataURL(`image/${format}`, format === 'jpeg' ? 0.9 : undefined);
       const link = document.createElement('a');
-      link.download = `valentine-wish.${format}`;
+      link.download = `valentine-wish-${new Date().getTime()}.${format}`;
       link.href = image;
       link.click();
     } catch (error) {
       console.error('Error generating image:', error);
+      alert('Sorry, there was an error generating your card. Please try again.');
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -39,18 +50,29 @@ export default function CardGenerator({ wish }) {
       </div>
       
       <div className="download-buttons">
-        <button 
-          onClick={() => downloadCard('png')} 
-          className="download-button"
-        >
-          <FaDownload className="mr-2" /> Download PNG
-        </button>
-        <button 
-          onClick={() => downloadCard('jpeg')} 
-          className="download-button"
-        >
-          <FaDownload className="mr-2" /> Download JPEG
-        </button>
+        {isGenerating ? (
+          <div className="generating-message">
+            <FaSpinner className="animate-spin mr-2" />
+            Generating your card...
+          </div>
+        ) : (
+          <>
+            <button 
+              onClick={() => downloadCard('png')} 
+              className="download-button"
+              disabled={isGenerating}
+            >
+              <FaDownload className="mr-2" /> Download PNG
+            </button>
+            <button 
+              onClick={() => downloadCard('jpeg')} 
+              className="download-button"
+              disabled={isGenerating}
+            >
+              <FaDownload className="mr-2" /> Download JPEG
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

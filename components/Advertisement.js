@@ -1,14 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Advertisement({ slot = "7108422145", format = 'auto' }) {
+  const [adError, setAdError] = useState(false);
+
   useEffect(() => {
     try {
-      // Push the ad after component mounts
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      if (window.adsbygoogle) {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
     } catch (err) {
       console.error('AdSense error:', err);
+      setAdError(true);
     }
   }, []);
+
+  if (adError) return null;
 
   return (
     <div className="ad-container">

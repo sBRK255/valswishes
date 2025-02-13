@@ -498,3 +498,31 @@ body::before {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
 }
+
+/* Add these styles */
+.share-button.native {
+  background: linear-gradient(45deg, #333 0%, #666 100%);
+}
+
+/* Fix mobile responsiveness */
+@media (max-width: 640px) {
+  .share-buttons-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-preview {
+    padding: 1.5rem;
+  }
+
+  .card-heading {
+    font-size: 2rem;
+  }
+
+  .card-message {
+    font-size: 1rem;
+  }
+
+  .download-buttons {
+    flex-direction: column;
+  }
+}

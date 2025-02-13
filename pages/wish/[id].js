@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Head from 'next/head';
 import { db } from '../../firebase/config';
 import { doc, getDoc } from 'firebase/firestore';
-import { FaHeart, FaWhatsapp, FaFacebook, FaInstagram, FaPen } from 'react-icons/fa';
+import { FaHeart, FaWhatsapp, FaFacebook, FaInstagram, FaPen, FaShare } from 'react-icons/fa';
 import Footer from '../../components/Footer';
 import CardGenerator from '../../components/CardGenerator';
 
@@ -102,24 +102,71 @@ export default function WishPage() {
   }, [wish]);
 
   const shareMessage = encodeURIComponent(
-    `${wish?.toName} has received a special Valentine's wish! 💝\n\nCheck it out here: ${
-      typeof window !== 'undefined' ? window.location.href : ''
-    }`
+    `💝 ${wish?.toName} has received a special Valentine's wish from ${wish?.fromName}!\n\nClick here to view the message:`
   );
 
   const shareLinks = {
-    whatsapp: `https://wa.me/?text=${shareMessage}`,
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${
-      typeof window !== 'undefined' ? window.location.href : ''
-    }`,
-    instagram: `https://www.instagram.com/?url=${
-      typeof window !== 'undefined' ? window.location.href : ''
-    }`
+    whatsapp: `https://api.whatsapp.com/send?text=${shareMessage} ${typeof window !== 'undefined' ? window.location.href : ''}`,
+    facebook: `https://www.facebook.com/dialog/share?app_id=YOUR_FB_APP_ID&href=${
+      typeof window !== 'undefined' ? encodeURIComponent(window.location.href) : ''
+    }&quote=${shareMessage}`,
+    instagram: `https://www.instagram.com/share?url=${
+      typeof window !== 'undefined' ? encodeURIComponent(window.location.href) : ''
+    }&caption=${shareMessage}`
   };
 
-  const handleShare = (platform) => {
-    window.open(shareLinks[platform], '_blank', 'noopener,noreferrer');
+  const handleShare = async (platform) => {
+    try {
+      if (navigator.share && (platform === 'whatsapp' || platform === 'native')) {
+        // Use native sharing if available
+        await navigator.share({
+          title: `Valentine's Wish for ${wish?.toName}`,
+          text: `${wish?.toName} has received a special Valentine's wish from ${wish?.fromName}!`,
+          url: window.location.href
+        });
+      } else {
+        window.open(shareLinks[platform], '_blank', 'noopener,noreferrer');
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+    }
   };
+
+  // Add a new share button for native sharing
+  const ShareButtons = () => (
+    <motion.div 
+      className="share-buttons-grid"
+      initial={{ scale: 0.9, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+    >
+      {navigator.share && (
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => handleShare('native')}
+          className="share-button native"
+        >
+          <FaShare className="text-2xl" />
+        </motion.button>
+      )}
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => handleShare('whatsapp')}
+        className="share-button whatsapp"
+      >
+        <FaWhatsapp className="text-2xl" />
+      </motion.button>
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => handleShare('facebook')}
+        className="share-button facebook"
+      >
+        <FaFacebook className="text-2xl" />
+      </motion.button>
+    </motion.div>
+  );
 
   if (!wish) {
     return (
@@ -206,36 +253,7 @@ export default function WishPage() {
             </button>
 
             {showShareButtons && (
-              <motion.div 
-                className="share-buttons-grid"
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-              >
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => handleShare('whatsapp')}
-                  className="share-button whatsapp"
-                >
-                  <FaWhatsapp className="text-2xl" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => handleShare('facebook')}
-                  className="share-button facebook"
-                >
-                  <FaFacebook className="text-2xl" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => handleShare('instagram')}
-                  className="share-button instagram"
-                >
-                  <FaInstagram className="text-2xl" />
-                </motion.button>
-              </motion.div>
+              <ShareButtons />
             )}
           </motion.div>
 
