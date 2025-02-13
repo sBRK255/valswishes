@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
-import { FaDownload, FaSpinner, FaHeart, FaPalette } from 'react-icons/fa';
+import { FaDownload, FaSpinner, FaHeart, FaPalette, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 export default function CardGenerator({ wish }) {
-  const cardRef = useRef(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [showDownloadSection, setShowDownloadSection] = useState(false);
   const [theme, setTheme] = useState('classic'); // classic, modern, romantic, minimal
 
   const themes = {
@@ -109,49 +109,62 @@ export default function CardGenerator({ wish }) {
   };
 
   return (
-    <div className="download-section">
-      <div className="theme-selector">
-        <label className="theme-label">
-          <FaPalette className="mr-2" /> Select Theme:
-        </label>
-        <div className="theme-buttons">
-          {Object.keys(themes).map((themeName) => (
-            <button
-              key={themeName}
-              onClick={() => setTheme(themeName)}
-              className={`theme-button ${theme === themeName ? 'active' : ''}`}
-            >
-              {themeName.charAt(0).toUpperCase() + themeName.slice(1)}
-            </button>
-          ))}
-        </div>
-      </div>
+    <div className="card-download-container">
+      <button 
+        className="download-toggle-button"
+        onClick={() => setShowDownloadSection(!showDownloadSection)}
+      >
+        <FaDownload className="mr-2" />
+        {showDownloadSection ? 'Hide Download Options' : 'Download this card'}
+        {showDownloadSection ? <FaChevronUp className="ml-2" /> : <FaChevronDown className="ml-2" />}
+      </button>
 
-      <div className="download-buttons">
-        {isGenerating ? (
-          <div className="generating-message">
-            <FaSpinner className="animate-spin mr-2" />
-            Creating your beautiful card...
+      {showDownloadSection && (
+        <div className="download-section">
+          <div className="theme-selector">
+            <label className="theme-label">
+              <FaPalette className="mr-2" /> Select Theme:
+            </label>
+            <div className="theme-buttons">
+              {Object.keys(themes).map((themeName) => (
+                <button
+                  key={themeName}
+                  onClick={() => setTheme(themeName)}
+                  className={`theme-button ${theme === themeName ? 'active' : ''}`}
+                >
+                  {themeName.charAt(0).toUpperCase() + themeName.slice(1)}
+                </button>
+              ))}
+            </div>
           </div>
-        ) : (
-          <>
-            <button 
-              onClick={() => generateCard('png')} 
-              className="download-button"
-              disabled={isGenerating}
-            >
-              <FaDownload className="mr-2" /> Download as PNG
-            </button>
-            <button 
-              onClick={() => generateCard('jpeg')} 
-              className="download-button"
-              disabled={isGenerating}
-            >
-              <FaDownload className="mr-2" /> Download as JPEG
-            </button>
-          </>
-        )}
-      </div>
+
+          <div className="download-buttons">
+            {isGenerating ? (
+              <div className="generating-message">
+                <FaSpinner className="animate-spin mr-2" />
+                Creating your beautiful card...
+              </div>
+            ) : (
+              <>
+                <button 
+                  onClick={() => generateCard('png')} 
+                  className="download-button"
+                  disabled={isGenerating}
+                >
+                  <FaDownload className="mr-2" /> Download as PNG
+                </button>
+                <button 
+                  onClick={() => generateCard('jpeg')} 
+                  className="download-button"
+                  disabled={isGenerating}
+                >
+                  <FaDownload className="mr-2" /> Download as JPEG
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 } 
