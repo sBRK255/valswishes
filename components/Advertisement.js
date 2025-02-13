@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export default function Advertisement({ slot, format = 'auto' }) {
+export default function Advertisement({ slot = "7108422145", format = 'auto' }) {
   useEffect(() => {
     try {
       // Push the ad after component mounts
@@ -16,7 +16,7 @@ export default function Advertisement({ slot, format = 'auto' }) {
         className="adsbygoogle"
         style={{ display: 'block' }}
         data-ad-client="ca-pub-4783980080225222"
-        data-ad-slot={slot}
+        data-ad-slot="7108422145"
         data-ad-format={format}
         data-full-width-responsive="true"
       />
