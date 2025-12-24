@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { FaHeart, FaSpinner, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { db } from '../firebase/config';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function DonationButton() {
     const [showDonationForm, setShowDonationForm] = useState(false);
@@ -10,8 +12,28 @@ export default function DonationButton() {
     const [isProcessing, setIsProcessing] = useState(false);
     const [transactionStatus, setTransactionStatus] = useState(null); // null, 'success', 'pending', 'failed'
     const [transactionId, setTransactionId] = useState(null);
+    const [isDonationSaved, setIsDonationSaved] = useState(false);
 
     const presetAmounts = [1000, 2000, 5000, 10000]; // TSh amounts
+
+    const saveDonation = async (tranData) => {
+        if (isDonationSaved) return;
+
+        try {
+            await addDoc(collection(db, 'donations'), {
+                name: name,
+                amount: parseInt(selectedAmount || customAmount),
+                phoneNumber: phoneNumber, // Ideally hash or mask this
+                transactionId: tranData?.tranid || transactionId,
+                timestamp: serverTimestamp(),
+                message: "Val's Wishes Supporter"
+            });
+            setIsDonationSaved(true);
+            console.log("Donation saved to Firestore!");
+        } catch (error) {
+            console.error("Error saving donation:", error);
+        }
+    };
 
     const handleDonation = async () => {
         const amount = selectedAmount || parseInt(customAmount);
@@ -84,6 +106,7 @@ export default function DonationButton() {
 
             if (data.data?.payment_status === 'COMPLETED') {
                 setTransactionStatus('success');
+                saveDonation(data.data);
             } else if (data.data?.payment_status === 'PENDING') {
                 // Check again after 30 seconds, up to 2 minutes
                 const elapsedTime = Date.now() - startTime;
@@ -108,6 +131,7 @@ export default function DonationButton() {
         setName('');
         setTransactionStatus(null);
         setTransactionId(null);
+        setIsDonationSaved(false);
     };
 
     return (

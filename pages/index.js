@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { FaGift, FaSnowflake } from 'react-icons/fa';
 import Footer from '../components/Footer';
+import DonorTicker from '../components/DonorTicker';
 
 export default function Home() {
   const router = useRouter();
@@ -119,6 +120,7 @@ export default function Home() {
         </motion.div>
       </div>
 
+      <DonorTicker />
       <Footer />
     </>
   );
