@@ -88,7 +88,7 @@ body::before {
 
 .form-container {
   background: linear-gradient(135deg, rgba(196, 30, 58, 0.95) 0%, rgba(22, 91, 51, 0.95) 100%);
-  padding: 2.5rem;
+  padding: 2rem;
   border-radius: 20px;
   box-shadow:
     0 8px 32px rgba(196, 30, 58, 0.3),
@@ -526,6 +526,42 @@ body::before {
 
 /* Fix mobile responsiveness */
 @media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .form-container {
+    padding: 1.5rem;
+    max-width: 95%;
+    margin: 0 auto;
+    border-radius: 15px;
+  }
+
+  .heading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .message-text {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .signature {
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+  }
+
+  .input-field {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+
+  .submit-button {
+    padding: 0.9rem;
+    font-size: 1rem;
+  }
+
   .share-buttons-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -544,6 +580,20 @@ body::before {
 
   .download-buttons {
     flex-direction: column;
+  }
+
+  .actions-container {
+    max-width: 95%;
+    padding: 0 0.5rem;
+  }
+
+  .share-section {
+    padding: 1rem;
+  }
+
+  .create-button {
+    padding: 0.9rem 1.5rem;
+    font-size: 1rem;
   }
 }
 
