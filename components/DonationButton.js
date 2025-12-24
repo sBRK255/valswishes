@@ -110,7 +110,7 @@ export default function DonationButton() {
             } else if (data.data?.payment_status === 'PENDING') {
                 // Check again after 30 seconds, up to 2 minutes
                 const elapsedTime = Date.now() - startTime;
-                if (elapsedTime < 120000) { // 2 minutes
+                if (elapsedTime < 100000) { // 2 minutes
                     setTimeout(() => checkTransactionStatus(tranId, startTime), 30000);
                 } else {
                     setTransactionStatus('failed');
