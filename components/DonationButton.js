@@ -53,8 +53,9 @@ export default function DonationButton() {
             if (data.status === 'success') {
                 setTransactionId(data.data.tranID);
 
-                // Check transaction status after 5 seconds
-                setTimeout(() => checkTransactionStatus(data.data.tranID), 5000);
+                // Start checking status, passing current time as start time
+                const startTime = Date.now();
+                setTimeout(() => checkTransactionStatus(data.data.tranID, startTime), 5000);
             } else {
                 setTransactionStatus('failed');
                 alert('Failed to initiate payment. Please try again.');
@@ -68,7 +69,7 @@ export default function DonationButton() {
         }
     };
 
-    const checkTransactionStatus = async (tranId) => {
+    const checkTransactionStatus = async (tranId, startTime) => {
         try {
             const response = await fetch(
                 `https://api.fastlipa.com/api/status-transaction?tranid=${tranId}`,
@@ -85,9 +86,9 @@ export default function DonationButton() {
                 setTransactionStatus('success');
             } else if (data.data?.payment_status === 'PENDING') {
                 // Check again after 30 seconds, up to 2 minutes
-                const elapsedTime = Date.now();
+                const elapsedTime = Date.now() - startTime;
                 if (elapsedTime < 120000) { // 2 minutes
-                    setTimeout(() => checkTransactionStatus(tranId), 30000);
+                    setTimeout(() => checkTransactionStatus(tranId, startTime), 30000);
                 } else {
                     setTransactionStatus('failed');
                 }
@@ -182,7 +183,7 @@ export default function DonationButton() {
                                     </div>
 
                                     <div className="custom-amount">
-                                        <label className="form-label">Or enter custom amount:</label>
+                                        <label className="form-label">Or enter custom amount(min 200 TSh):</label>
                                         <input
                                             type="number"
                                             value={customAmount}

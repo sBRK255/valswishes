@@ -1026,8 +1026,9 @@ body::before {
 
 @media (max-width: 640px) {
   .donation-modal-content {
-    padding: 1.25rem;
+    padding: 1rem;
     width: 90%;
+    max-height: 90vh;
   }
 
   .donation-toggle-button {
@@ -1037,15 +1038,59 @@ body::before {
   }
 
   .preset-amounts {
-    justify-content: space-between;
+    justify-content: center;
+    gap: 0.3rem !important;
   }
 
   .amount-button {
-    flex: 1 1 calc(50% - 0.5rem);
+    flex: 1 1 calc(25% - 0.3rem) !important;
+    /* 4 per row */
     min-width: unset;
+    padding: 0.3rem 0.1rem;
+    font-size: 0.8rem;
+  }
+
+  /* Fallback to 2 per row on very small screens if needed, 
+     but trying 4 per row first to reduce height */
+  @media (max-width: 360px) {
+    .amount-button {
+      flex: 1 1 calc(50% - 0.3rem) !important;
+    }
   }
 
   .donation-title {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+  }
+
+  .donation-description {
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+
+  .form-group {
+    margin-bottom: 0.5rem;
+  }
+
+  .input-field {
+    padding: 0.5rem;
+    margin: 0.2rem 0;
+    font-size: 0.9rem;
+  }
+
+  .help-text {
+    font-size: 0.75rem;
+  }
+
+  .submit-donation-button {
+    padding: 0.7rem;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .donation-container {
+    margin-top: 1rem;
   }
 }
