@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaHeart } from 'react-icons/fa';
+import { FaSnowflake } from 'react-icons/fa';
 import Advertisement from './Advertisement';
 
 export default function Footer() {
@@ -13,7 +13,7 @@ export default function Footer() {
         className="footer"
       >
         <div className="copyright">
-          Made with <FaHeart className="inline-block text-pink-500 animate-pulse" /> by{' '}
+          Made with <FaSnowflake className="inline-block animate-pulse" style={{ color: '#d4af37' }} /> by{' '}
           <a
             href="https://github.com/sirtheprogrammer"
             target="_blank"

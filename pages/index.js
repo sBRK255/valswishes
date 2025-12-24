@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { FaHeart } from 'react-icons/fa';
+import { FaGift, FaSnowflake } from 'react-icons/fa';
 import Footer from '../components/Footer';
 
 export default function Home() {
@@ -42,8 +42,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Create Valentine's Wish</title>
-        <meta name="description" content="Create and share Valentine's wishes with your loved ones" />
+        <title>Create Christmas Wish</title>
+        <meta name="description" content="Create and share Christmas wishes with your loved ones" />
       </Head>
 
       <div className="container">
@@ -58,8 +58,8 @@ export default function Home() {
             animate={{ y: [-10, 0, -10] }}
             transition={{ duration: 3, repeat: Infinity }}
           >
-            <h1 className="heading">
-              Create Your Valentine's Wish <FaHeart className="inline-block text-pink-500" />
+            <h1 className="heading" style={{ color: 'white' }}>
+              Create Your Christmas Wish <FaSnowflake className="inline-block" style={{ color: '#d4af37' }} />
             </h1>
           </motion.div>
 
@@ -79,7 +79,7 @@ export default function Home() {
             <div className="mb-4">
               <input
                 type="text"
-                placeholder="Your Valentine's Name"
+                placeholder="Recipient's Name"
                 className="input-field"
                 value={formData.toName}
                 onChange={(e) => setFormData({ ...formData, toName: e.target.value })}
@@ -90,7 +90,7 @@ export default function Home() {
 
             <div className="mb-4">
               <textarea
-                placeholder="Write your heartfelt message..."
+                placeholder="Write your heartfelt Christmas message..."
                 className="input-field"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -111,7 +111,7 @@ export default function Home() {
                 'Creating your wish...'
               ) : (
                 <>
-                  Send Love <FaHeart className="inline-block ml-2" />
+                  Send Christmas Wishes <FaGift className="inline-block ml-2" />
                 </>
               )}
             </motion.button>

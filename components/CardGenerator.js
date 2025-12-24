@@ -1,32 +1,32 @@
 import { useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
-import { FaDownload, FaSpinner, FaHeart, FaPalette, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaDownload, FaSpinner, FaGift, FaPalette, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 export default function CardGenerator({ wish }) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [showDownloadSection, setShowDownloadSection] = useState(false);
-  const [theme, setTheme] = useState('classic'); // classic, modern, romantic, minimal
+  const [theme, setTheme] = useState('classic'); // classic, festive, winter, elegant
 
   const themes = {
     classic: {
-      background: 'linear-gradient(135deg, #fff5f6 0%, #ffe9ec 100%)',
-      fontColor: '#4a4a4a',
-      accentColor: '#ff6b6b'
+      background: 'linear-gradient(135deg, #f8fffe 0%, #e8f4f8 100%)',
+      fontColor: '#2c3e50',
+      accentColor: '#c41e3a'
     },
-    modern: {
-      background: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)',
-      fontColor: '#2d3436',
-      accentColor: '#6c5ce7'
+    festive: {
+      background: 'linear-gradient(135deg, #165b33 0%, #c41e3a 100%)',
+      fontColor: '#ffffff',
+      accentColor: '#d4af37'
     },
-    romantic: {
-      background: 'linear-gradient(135deg, #ffd1ff 0%, #faa7a7 100%)',
-      fontColor: '#4a4a4a',
-      accentColor: '#e84393'
+    winter: {
+      background: 'linear-gradient(135deg, #e8f4f8 0%, #d4e9f7 100%)',
+      fontColor: '#2c3e50',
+      accentColor: '#165b33'
     },
-    minimal: {
-      background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
-      fontColor: '#2d3436',
-      accentColor: '#ff8787'
+    elegant: {
+      background: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)',
+      fontColor: '#ecf0f1',
+      accentColor: '#d4af37'
     }
   };
 
@@ -68,8 +68,8 @@ export default function CardGenerator({ wish }) {
           text-align: right;
           margin-top: 32px;
         ">
-          With love,<br/>
-          ${wish.fromName} ❤️
+          Warm wishes,<br/>
+          ${wish.fromName} 🎄
         </div>
         <div style="
           position: absolute;
@@ -97,7 +97,7 @@ export default function CardGenerator({ wish }) {
 
       const image = canvas.toDataURL(`image/${format}`, format === 'jpeg' ? 0.9 : undefined);
       const link = document.createElement('a');
-      link.download = `valentine-wish-${theme}-${new Date().getTime()}.${format}`;
+      link.download = `christmas-wish-${theme}-${new Date().getTime()}.${format}`;
       link.href = image;
       link.click();
     } catch (error) {
@@ -110,7 +110,7 @@ export default function CardGenerator({ wish }) {
 
   return (
     <div className="card-download-container">
-      <button 
+      <button
         className="download-toggle-button"
         onClick={() => setShowDownloadSection(!showDownloadSection)}
       >
@@ -146,15 +146,15 @@ export default function CardGenerator({ wish }) {
               </div>
             ) : (
               <>
-                <button 
-                  onClick={() => generateCard('png')} 
+                <button
+                  onClick={() => generateCard('png')}
                   className="download-button"
                   disabled={isGenerating}
                 >
                   <FaDownload className="mr-2" /> Download as PNG
                 </button>
-                <button 
-                  onClick={() => generateCard('jpeg')} 
+                <button
+                  onClick={() => generateCard('jpeg')}
                   className="download-button"
                   disabled={isGenerating}
                 >

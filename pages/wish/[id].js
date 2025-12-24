@@ -4,24 +4,25 @@ import { motion } from 'framer-motion';
 import Head from 'next/head';
 import { db } from '../../firebase/config';
 import { doc, getDoc } from 'firebase/firestore';
-import { FaHeart, FaWhatsapp, FaFacebook, FaInstagram, FaPen, FaShare, FaLink } from 'react-icons/fa';
+import { FaSnowflake, FaWhatsapp, FaFacebook, FaInstagram, FaPen, FaShare, FaLink, FaGift } from 'react-icons/fa';
 import Footer from '../../components/Footer';
 import CardGenerator from '../../components/CardGenerator';
 
-// Heart animation component
-const FloatingHeart = ({ style }) => (
+// Snowflake animation component
+const FloatingSnowflake = ({ style }) => (
   <motion.div
     className="heart-animation"
-    initial={{ scale: 0, y: 100 }}
+    initial={{ scale: 0, y: -20 }}
     animate={{
       scale: [1, 1.2, 1],
-      y: [-20, -180],
+      y: [0, 180],
       opacity: [1, 0],
+      rotate: [0, 360],
     }}
-    transition={{ duration: 2 }}
+    transition={{ duration: 3 }}
     style={style}
   >
-    <FaHeart className="text-pink-500" />
+    <FaSnowflake style={{ color: '#d4af37' }} />
   </motion.div>
 );
 
@@ -29,7 +30,7 @@ export default function WishPage() {
   const router = useRouter();
   const { id } = router.query;
   const [wish, setWish] = useState(null);
-  const [hearts, setHearts] = useState([]);
+  const [snowflakes, setSnowflakes] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showShareButtons, setShowShareButtons] = useState(false);
 
@@ -54,10 +55,10 @@ export default function WishPage() {
 
   useEffect(() => {
     if (wish) {
-      const audio = new Audio('/love-song.mp3');
+      const audio = new Audio('/christmass.mp3');
       audio.loop = true;
       audio.volume = 0.3;
-      
+
       // Try to autoplay
       const playMusic = async () => {
         try {
@@ -88,30 +89,28 @@ export default function WishPage() {
   useEffect(() => {
     if (wish) {
       const interval = setInterval(() => {
-        const newHeart = {
+        const newSnowflake = {
           id: Date.now(),
           style: {
             left: `${Math.random() * 100}vw`,
           },
         };
-        setHearts(prev => [...prev.slice(-15), newHeart]); // Keep only last 15 hearts
-      }, 1000);
+        setSnowflakes(prev => [...prev.slice(-15), newSnowflake]); // Keep only last 15 snowflakes
+      }, 800);
 
       return () => clearInterval(interval);
     }
   }, [wish]);
 
   const shareMessage = encodeURIComponent(
-    `💝 ${wish?.toName} has received a special Valentine's wish from ${wish?.fromName}! Click to view this lovely message 💌`
+    `🎄 ${wish?.toName} has received a special Christmas wish from ${wish?.fromName}! Click to view this lovely message 🎁`
   );
 
   const shareLinks = {
-    whatsapp: `https://api.whatsapp.com/send?text=${shareMessage}%0A%0A${
-      typeof window !== 'undefined' ? encodeURIComponent(window.location.href) : ''
-    }`,
-    facebook: `https://www.facebook.com/sharer.php?u=${
-      typeof window !== 'undefined' ? encodeURIComponent(window.location.href) : ''
-    }&quote=${shareMessage}`,
+    whatsapp: `https://api.whatsapp.com/send?text=${shareMessage}%0A%0A${typeof window !== 'undefined' ? encodeURIComponent(window.location.href) : ''
+      }`,
+    facebook: `https://www.facebook.com/sharer.php?u=${typeof window !== 'undefined' ? encodeURIComponent(window.location.href) : ''
+      }&quote=${shareMessage}`,
     copy: typeof window !== 'undefined' ? window.location.href : ''
   };
 
@@ -119,8 +118,8 @@ export default function WishPage() {
     try {
       if (navigator.share && platform === 'native') {
         await navigator.share({
-          title: `Valentine's Wish for ${wish?.toName}`,
-          text: `${wish?.toName} has received a special Valentine's wish from ${wish?.fromName}! 💝`,
+          title: `Christmas Wish for ${wish?.toName}`,
+          text: `${wish?.toName} has received a special Christmas wish from ${wish?.fromName}! 🎄`,
           url: window.location.href
         });
         return;
@@ -203,27 +202,28 @@ export default function WishPage() {
   return (
     <>
       <Head>
-        <title>Valentine's Wish for {wish.toName}</title>
-        <meta name="description" content={`A special Valentine's wish for ${wish.toName}`} />
+        <title>Christmas Wish for {wish.toName}</title>
+        <meta name="description" content={`A special Christmas wish for ${wish.toName}`} />
       </Head>
 
       <div className="container">
-        {hearts.map(heart => (
-          <FloatingHeart key={heart.id} style={heart.style} />
+        {snowflakes.map(snowflake => (
+          <FloatingSnowflake key={snowflake.id} style={snowflake.style} />
         ))}
 
-        {/* Valentine Card */}
+        {/* Christmas Card */}
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           className="form-container"
         >
           <div className="card-content">
-            <motion.h1 
+            <motion.h1
               className="heading"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
+              style={{ color: 'white' }}
             >
               Dear {wish.toName},
             </motion.h1>
@@ -233,6 +233,7 @@ export default function WishPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
+              style={{ color: 'white' }}
             >
               {wish.message}
             </motion.div>
@@ -242,9 +243,10 @@ export default function WishPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.5 }}
+              style={{ color: 'white' }}
             >
-              With love,<br />
-              {wish.fromName} <FaHeart className="inline-block text-pink-500" />
+              With warm wishes,<br />
+              {wish.fromName} <FaGift className="inline-block" style={{ color: '#d4af37' }} />
             </motion.div>
           </div>
         </motion.div>
@@ -288,7 +290,7 @@ export default function WishPage() {
               className="create-button"
             >
               <FaPen className="inline-block mr-2" />
-              Create Your Own Valentine's Wish
+              Create Your Own Christmas Wish
             </motion.button>
           </div>
         </motion.div>
