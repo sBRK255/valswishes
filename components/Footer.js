@@ -15,12 +15,12 @@ export default function Footer() {
         <div className="copyright">
           Made with <FaSnowflake className="inline-block animate-pulse" style={{ color: '#d4af37' }} /> by{' '}
           <a
-            href="https://github.com/sirtheprogrammer"
+            href="https://codeskytz.site"
             target="_blank"
             rel="noopener noreferrer"
             className="author-link"
           >
-            SirTheProgrammer
+            codeskytz
           </a>
         </div>
       </motion.footer>

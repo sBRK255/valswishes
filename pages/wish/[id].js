@@ -120,7 +120,7 @@ export default function WishPage() {
       if (navigator.share && platform === 'native') {
         await navigator.share({
           title: `Christmas Wish for ${wish?.toName}`,
-          text: `${wish?.toName} has received a special Christmas wish from ${wish?.fromName}! 🎄`,
+          text: `${wish?.toName} you have received a special Christmas wish from ${wish?.fromName}! 🎄`,
           url: window.location.href
         });
         return;
