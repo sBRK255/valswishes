@@ -194,7 +194,7 @@ export default function WishPage() {
     return (
       <div className="container">
         <div className="form-container text-center">
-          <p className="text-xl">Loading your valentine wish...</p>
+          <p className="text-xl">Loading your christmass wish...</p>
         </div>
       </div>
     );

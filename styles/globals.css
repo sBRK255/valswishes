@@ -746,7 +746,7 @@ body::before {
 .donation-container {
   width: 100%;
   max-width: 500px;
-  margin: 2rem auto 0;
+  margin: 1.5rem auto 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -762,9 +762,13 @@ body::before {
   border: none;
   border-radius: 25px;
   font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(196, 30, 58, 0.4);
+  width: 90%;
+  justify-content: center;
+  max-width: 300px;
 }
 
 .donation-toggle-button:hover {
@@ -789,11 +793,11 @@ body::before {
 }
 
 .donation-modal-content {
-  width: 100%;
-  max-width: 500px;
-  background: rgba(255, 255, 255, 0.95);
+  width: 95%;
+  max-width: 450px;
+  background: rgba(255, 255, 255, 0.98);
   border-radius: 20px;
-  padding: 2.5rem;
+  padding: 1.5rem;
   box-shadow: 0 10px 40px rgba(196, 30, 58, 0.2);
   border: 2px solid rgba(212, 175, 55, 0.3);
   position: relative;
@@ -804,8 +808,8 @@ body::before {
 
 .donation-close-button {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 10px;
+  right: 10px;
   background: none;
   border: none;
   font-size: 1.5rem;
@@ -813,6 +817,7 @@ body::before {
   cursor: pointer;
   transition: all 0.2s ease;
   z-index: 10;
+  padding: 5px;
 }
 
 .donation-close-button:hover {
@@ -845,20 +850,22 @@ body::before {
 .donation-title {
   font-family: var(--font-heading);
   color: var(--primary-color);
-  font-size: 2.2rem;
+  font-size: 2rem;
   text-align: center;
   margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .donation-description {
   text-align: center;
   color: var(--text-color);
-  margin-bottom: 2rem;
-  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+  font-size: 1rem;
 }
 
 .amount-selection {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .form-label {
@@ -866,24 +873,30 @@ body::before {
   font-weight: 600;
   color: var(--text-color);
   margin-bottom: 0.5rem;
+  font-size: 0.95rem;
 }
 
 .preset-amounts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  justify-content: center;
 }
 
 .amount-button {
-  padding: 0.8rem;
+  padding: 0.5rem 1rem;
   border: 2px solid var(--primary-color);
-  border-radius: 12px;
+  border-radius: 20px;
   background: white;
   color: var(--primary-color);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 0.95rem;
+  flex: 1 1 calc(25% - 0.5rem);
+  min-width: 80px;
+  text-align: center;
 }
 
 .amount-button:hover {
@@ -896,30 +909,31 @@ body::before {
   background: var(--gradient-christmas);
   color: white;
   box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
+  border-color: transparent;
 }
 
 .custom-amount {
-  margin-top: 1rem;
+  margin-top: 0.8rem;
 }
 
 .donor-info {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .help-text {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #666;
-  margin-top: 0.25rem;
+  margin-top: 0.2rem;
 }
 
 .submit-donation-button {
   width: 100%;
-  padding: 1rem;
+  padding: 0.9rem;
   background: var(--gradient-christmas);
   color: white;
   border: none;
@@ -932,6 +946,7 @@ body::before {
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 15px rgba(196, 30, 58, 0.4);
+  margin-top: 0.5rem;
 }
 
 .submit-donation-button:hover:not(:disabled) {
@@ -948,59 +963,60 @@ body::before {
 .donation-failed,
 .donation-pending {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 1rem;
 }
 
 .success-icon {
-  font-size: 4rem;
+  font-size: 3.5rem;
   color: #28a745;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .error-icon {
-  font-size: 4rem;
+  font-size: 3.5rem;
   color: #dc3545;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .pending-icon {
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: var(--primary-color);
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .donation-success h3,
 .donation-failed h3,
 .donation-pending h3 {
   font-family: var(--font-heading);
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
   color: var(--text-color);
 }
 
 .donation-success p,
 .donation-failed p,
 .donation-pending p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
 }
 
 .transaction-id {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #666;
   font-family: monospace;
 }
 
 .reset-button {
-  margin-top: 1.5rem;
-  padding: 0.8rem 2rem;
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
   background: var(--gradient-christmas);
   color: white;
   border: none;
   border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 1rem;
 }
 
 .reset-button:hover {
@@ -1009,20 +1025,27 @@ body::before {
 }
 
 @media (max-width: 640px) {
-  .donation-form {
-    padding: 1.5rem;
+  .donation-modal-content {
+    padding: 1.25rem;
+    width: 90%;
   }
 
   .donation-toggle-button {
-    padding: 0.9rem 1.5rem;
+    padding: 0.8rem 1.5rem;
     font-size: 1rem;
+    width: 95%;
   }
 
   .preset-amounts {
-    grid-template-columns: 1fr;
+    justify-content: space-between;
+  }
+
+  .amount-button {
+    flex: 1 1 calc(50% - 0.5rem);
+    min-width: unset;
   }
 
   .donation-title {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 }
