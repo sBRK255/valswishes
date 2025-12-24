@@ -1,0 +1,50 @@
+payment gateway integration
+===========================
+
+
+Create Transaction
+this can be used to create transction to a user  and send a push notification to confirm the trancction
+
+POST /api/create-transaction
+Initiate a new payment transaction to the specified recipient.
+
+Body Parameters
+Parameter	Type	Required	Description
+number	String	Yes	Recipient's phone number
+amount	Integer	Yes	Amount to transfer (in smallest currency unit)
+name	String	Yes	Recipient's full name
+
+fetch("https://api.fastlipa.com/api/create-transaction", {
+  method: "POST",
+  headers: {
+    "Authorization": "Bearer FastLipa_yIPdGwsqFyINdHiLGRZjVr",
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    number: "0695123456",
+    amount: 5000,
+    name: "John Doe"
+  })
+})
+.then(res => res.json())
+.then(data => console.log(data));
+
+response
+
+{
+    "status": "success",
+    "message": "Payment created",
+    "data": {
+        "tranID": "pay_JNkLgHPcMW",
+        "amount": 5000,
+        "number": "255695123456",
+        "network": "AIRTEL",
+        "status": "PENDING",
+        "time": "2025-11-19T00:36:18.000000Z"
+    }
+}   
+then after a sccesfull pay the transaction status  will be checked manually
+trhough curl -X GET "https://api.fastlipa.com/api/status-transaction?tranid=pay_JNkLgHPcMW" \
+  -H "Authorization: Bearer FastLipa_yIPdGwsqFyINdHiLGRZjVr"      ehere the transid is trasncation id returned when creating the trabscation
+ and uf  returns COMPLETED if not succesfully the retuend response will contain a filed with  PENDING status so we will wait for atleast 2 minutes if the status remains as pendig after two minutes then the  trasnction will be unsuccesfull 
+

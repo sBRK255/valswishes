@@ -7,6 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { FaSnowflake, FaWhatsapp, FaFacebook, FaInstagram, FaPen, FaShare, FaLink, FaGift } from 'react-icons/fa';
 import Footer from '../../components/Footer';
 import CardGenerator from '../../components/CardGenerator';
+import DonationButton from '../../components/DonationButton';
 
 // Snowflake animation component
 const FloatingSnowflake = ({ style }) => (
@@ -293,6 +294,15 @@ export default function WishPage() {
               Create Your Own Christmas Wish
             </motion.button>
           </div>
+        </motion.div>
+
+        {/* Donation Section */}
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 2.5 }}
+        >
+          <DonationButton />
         </motion.div>
       </div>
       <Footer />

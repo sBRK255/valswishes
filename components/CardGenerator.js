@@ -76,10 +76,10 @@ export default function CardGenerator({ wish }) {
           bottom: 8px;
           right: 8px;
           font-family: Arial, sans-serif;
-          font-size: 10px;
-          color: rgba(74, 74, 74, 0.2);
+          font-size: 11px;
+          color: rgba(74, 74, 74, 0.5);
         ">
-          Created by SirTheProgrammer
+          made from https://wish.codeskytz.site
         </div>
       `;
 
